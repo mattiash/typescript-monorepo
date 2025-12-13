@@ -7,3 +7,18 @@ Based on https://medium.com/@cecylia.borek/setting-up-a-monorepo-using-npm-works
 Currently, node-emoji is installed in service-a, but it still works from common and service-b. Why?
 
 There is only a single node-modules directory, which feels wrong.
+
+# Install packages for service-a only:
+
+```
+rm -rf node_modules
+npm ci -w service-a
+```
+
+# Build Docker
+
+From root:
+
+```
+docker build -f Dockerfile.service-a -t service-a .
+```
