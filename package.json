@@ -14,5 +14,8 @@
     "common",
     "service-a",
     "service-b"
-  ]
+  ],
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
 }
