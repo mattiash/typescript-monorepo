@@ -20,5 +20,8 @@ npm ci -w service-a
 From root:
 
 ```
-docker build -f Dockerfile.service-a -t service-a .
+docker build --build-arg SERVICE=service-b -t service-b .
 ```
+
+The resulting image only has the dependencies for common and service-b in node_modules
+and only the build directories for these as well.

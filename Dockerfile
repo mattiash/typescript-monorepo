@@ -1,0 +1,26 @@
+FROM node:latest AS build
+
+ARG SERVICE=NO_SERVICE_SPECIFIED
+
+WORKDIR /app
+COPY package*.json tsconfig.json common.tsconfig.json .
+COPY common common/
+COPY $SERVICE $SERVICE/
+RUN npm install
+RUN cd $SERVICE && npx tsc --build && npm run test
+RUN rm -rf common/build/test $SERVICE/build/test
+
+FROM node:latest
+
+ARG SERVICE=NO_SERVICE_SPECIFIED
+
+WORKDIR /app
+COPY package*.json tsconfig.json common.tsconfig.json .
+COPY common/package*.json common/
+COPY $SERVICE/package*.json $SERVICE/
+RUN cd $SERVICE && npm ci
+COPY --from=build /app/common/build common/build/
+COPY --from=build /app/$SERVICE/build $SERVICE/build/
+WORKDIR /app/$SERVICE
+
+CMD ["npm", "start"]
