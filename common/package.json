@@ -2,7 +2,9 @@
   "name": "@tsmr/common",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "exports": {
+    "./*": "./build/*/index.js"
+  },
   "scripts": {
     "test": "multi-tape build/test/**/test-*.js"
   },

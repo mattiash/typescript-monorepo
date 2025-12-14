@@ -1,4 +1,4 @@
-import { plus } from "@tsmr/common/src/utils";
+import { plus } from "@tsmr/common/utils";
 
 export function double(a: number) {
   return plus(a, a);
