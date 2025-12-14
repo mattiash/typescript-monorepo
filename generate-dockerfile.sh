@@ -15,28 +15,39 @@ if [ ! -f "$TEMPLATE_FILE" ]; then
     exit 1
 fi
 
+# Function to safely replace include with file content
+replace_include() {
+    local input="$1"
+    local include_pattern="$2"
+    local file_path="$3"
+    
+    if [ -f "$file_path" ]; then
+        # Use awk to avoid variable expansion issues
+        echo "$input" | awk -v pattern="$include_pattern" -v file="$file_path" '
+        {
+            if ($0 ~ pattern) {
+                while ((getline line < file) > 0) {
+                    print line
+                }
+                close(file)
+            } else {
+                print $0
+            }
+        }'
+    else
+        # Remove the include line if file doesn't exist
+        echo "$input" | grep -v "$include_pattern"
+    fi
+}
+
 # Start with the template
 dockerfile_content=$(cat "$TEMPLATE_FILE")
 
 # Replace #include Dockerfile.build
-if [ -f "$BUILD_FILE" ]; then
-    build_content=$(cat "$BUILD_FILE")
-    # Use perl for more reliable multiline replacement
-    dockerfile_content=$(echo "$dockerfile_content" | perl -pe "s|#include Dockerfile\.build|$build_content|g")
-else
-    # Remove the include line if file doesn't exist
-    dockerfile_content=$(echo "$dockerfile_content" | grep -v "#include Dockerfile.build")
-fi
+dockerfile_content=$(replace_include "$dockerfile_content" "#include Dockerfile.build" "$BUILD_FILE")
 
 # Replace #include Dockerfile.prod
-if [ -f "$PROD_FILE" ]; then
-    prod_content=$(cat "$PROD_FILE")
-    # Use perl for more reliable multiline replacement
-    dockerfile_content=$(echo "$dockerfile_content" | perl -pe "s|#include Dockerfile\.prod|$prod_content|g")
-else
-    # Remove the include line if file doesn't exist
-    dockerfile_content=$(echo "$dockerfile_content" | grep -v "#include Dockerfile.prod")
-fi
+dockerfile_content=$(replace_include "$dockerfile_content" "#include Dockerfile.prod" "$PROD_FILE")
 
 # Output the final Dockerfile content to stdout
 echo "$dockerfile_content"
