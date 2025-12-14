@@ -1,10 +1,14 @@
-.PHONY: build test clean container
+.PHONY: build test test-cov clean container
 
 build:
 	npx --no -- tsc --build
 
 test:
 	npx --no multi-tape build/test/**/test-*.js
+
+test-cov:
+	npx --no -- c8 -r html multi-tape build/test/**/test-*.js
+	@echo Coverage in coverage/index.html
 
 clean:
 	rm -rf build/

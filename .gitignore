@@ -2,3 +2,5 @@ node_modules/
 *.tsbuildinfo
 **/build
 */Dockerfile
+*/coverage
+coverage
