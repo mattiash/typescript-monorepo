@@ -2,8 +2,10 @@
   "name": "@tsmr/common",
   "version": "1.0.0",
   "description": "",
+  "main": "build/index.js",
   "exports": {
-    "./*": "./build/*/index.js",
+    ".": "./build/index.js",
+    "./utils": "./build/utils/index.js",
     "./utils/file2": "./build/utils/file2.js"
   },
   "scripts": {

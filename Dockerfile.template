@@ -10,6 +10,8 @@ RUN npm install
 RUN cd $SERVICE && npx tsc --build && npm run test
 RUN rm -rf common/build/test $SERVICE/build/test
 
+#include Dockerfile.build
+
 FROM node:latest
 
 ARG SERVICE=NO_SERVICE_SPECIFIED
@@ -22,5 +24,7 @@ RUN cd $SERVICE && npm ci
 COPY --from=build /app/common/build common/build/
 COPY --from=build /app/$SERVICE/build $SERVICE/build/
 WORKDIR /app/$SERVICE
+
+#include Dockerfile.prod
 
 CMD ["npm", "start"]

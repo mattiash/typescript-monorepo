@@ -1,4 +1,4 @@
-.PHONY: build test clean
+.PHONY: build test clean container
 
 build:
 	npx --no -- tsc --build
@@ -9,3 +9,9 @@ test:
 clean:
 	rm -rf build/
 
+Dockerfile: ../Dockerfile.template $(wildcard Dockerfile.build) $(wildcard Dockerfile.prod) ../generate-dockerfile.sh
+	../generate-dockerfile.sh > Dockerfile
+
+container: Dockerfile
+	$(eval SERVICE_NAME := $(notdir $(CURDIR)))
+	cd .. && docker build --build-arg SERVICE=$(SERVICE_NAME) -t $(SERVICE_NAME) -f $(SERVICE_NAME)/Dockerfile .
