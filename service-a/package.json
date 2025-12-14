@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node build/index.js",
-    "test": "node build/test/test-basic.js"
+    "test": "multi-tape build/test/**/test-*.js"
   },
   "keywords": [],
   "author": "",

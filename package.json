@@ -16,7 +16,8 @@
     "service-b"
   ],
   "devDependencies": {
+    "multi-tape": "^1.11.2",
+    "purple-tape": "^3.9.7",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {}
+  }
 }
