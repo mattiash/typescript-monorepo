@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "exports": {
-    "./*": "./build/*/index.js"
+    "./*": "./build/*/index.js",
+    "./utils/file2": "./build/utils/file2.js"
   },
   "scripts": {
     "test": "multi-tape build/test/**/test-*.js"
