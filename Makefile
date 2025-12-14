@@ -1,4 +1,4 @@
-.PHONY: build test clean
+.PHONY: build test test-cov clean
 
 # Directories to run targets in
 DIRS := common service-a service-b
@@ -16,6 +16,10 @@ test:
 		$(MAKE) -C $$dir test || exit 1; \
 	done
 
+test-cov:
+	npx --no -- c8 -r html multi-tape */build/test/test-*.js */build/test/**/test-*.js
+	@echo Coverage report coverage/index.html
+	
 clean:
 	@for dir in $(DIRS); do \
 		echo "Cleaning $$dir..."; \
