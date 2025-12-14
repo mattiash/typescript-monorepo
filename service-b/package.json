@@ -1,15 +1,8 @@
 {
   "name": "@tsmr/service-b",
-  "version": "1.0.0",
-  "description": "",
-  "main": "build/index.js",
   "scripts": {
-    "start": "node build/index.js",
-    "test": "multi-tape build/test/**/test-*.js"
+    "start": "node build/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "@tsmr/common": "^1.0.0"
