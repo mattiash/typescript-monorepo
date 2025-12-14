@@ -1,0 +1,11 @@
+.PHONY: build test clean
+
+build:
+	npx tsc --build
+
+test:
+	npx multi-tape build/test/**/test-*.js
+
+clean:
+	rm -rf build/
+
