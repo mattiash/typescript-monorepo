@@ -7,8 +7,8 @@ COPY package*.json tsconfig.json common.tsconfig.json .
 COPY common common/
 COPY $SERVICE $SERVICE/
 RUN npm install
-RUN cd $SERVICE && npx tsc --build && npx multi-tape build/test/**/test-*.js
-RUN rm -rf common/build/test $SERVICE/build/test
+RUN cd $SERVICE && npx tsc --build && npx multi-tape build/**/test-*.js
+RUN find common/build $SERVICE/build -name test | xargs rm -rf
 
 #include Dockerfile.build
 

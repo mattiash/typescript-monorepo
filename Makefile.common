@@ -4,10 +4,10 @@ build:
 	npx --no -- tsc --build
 
 test:
-	npx --no multi-tape build/test/**/test-*.js
+	npx --no multi-tape build/**/test-*.js
 
 test-cov:
-	npx --no -- c8 -r html multi-tape build/test/**/test-*.js
+	npx --no -- c8 -r html multi-tape build/**/test-*.js
 	@echo Coverage in coverage/index.html
 
 clean:

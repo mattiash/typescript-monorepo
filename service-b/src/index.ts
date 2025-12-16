@@ -1,2 +1,2 @@
-import "@tsmr/common";
+import "../../common";
 console.log("service-b/index.ts");
