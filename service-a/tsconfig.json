@@ -2,7 +2,7 @@
   "extends": "../common.tsconfig.json",
   "compilerOptions": {
     "outDir": "./build",
-    "rootDir": "./src",
+    "rootDir": "./",
     "tsBuildInfoFile": "./build/.tsbuildinfo"
   },
   "references": [{ "path": "../common" }]
