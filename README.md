@@ -45,3 +45,23 @@ The resulting image only has the dependencies for common and service-b in node_m
 ## Dockerfile for Service
 
 The Dockerfile for each service is generated from `Dockerfile.template` in the root and the resulting Dockerfile should NOT be checked in. If a service requires installation of additional software, the Dockerfile can be augmented with `Dockerfile.build` and `Dockerfile.prod` files in the directory for the service.
+
+## Validating Dependencies
+
+`npx knip --strict && npx knip && npx sherif@latest`
+
+### Knip
+
+Knip checks that 
+
+1. all dependencies are actually used in imports
+2. all imports are included as dependencies
+
+for each workspace. Run `npx knip --strict` to check production builds and `npx knip` to check devDependencies.
+
+### Sherif
+
+Sherif checks that the same version is used for all dependencies in all workspaces.
+
+`npx sherif@latest`
+
